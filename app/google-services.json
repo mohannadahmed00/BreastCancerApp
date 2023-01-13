@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "673821202095",
+    "firebase_url": "https://breast-cancer-46a35.firebaseio.com",
+    "project_id": "breast-cancer-46a35",
+    "storage_bucket": "breast-cancer-46a35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673821202095:android:16a4b706d44b430ae8665a",
+        "android_client_info": {
+          "package_name": "com.example.myhello"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673821202095-ldksj4s9d2d8in9bvv4lobs0v38ki6ff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myhello",
+            "certificate_hash": "a60f5a1b832f32092ec5c659c3fc965f97eea2e3"
+          }
+        },
+        {
+          "client_id": "673821202095-ua9vdjj67e024mvgku152isc9q8vh030.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNW469XeIrfKXNm0HSeJqHwZPh6u3GD68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673821202095-ua9vdjj67e024mvgku152isc9q8vh030.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

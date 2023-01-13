@@ -1,0 +1,61 @@
+from firebase import firebase
+import json
+import numpy as np
+import urllib.request
+import cv2
+import pyrebase
+import os
+import math
+from PIL import Image, ImageFilter
+
+
+# def test_image(img):
+#     imaage = img.copy()
+#     if (imaage[2, 5] == 0).all():
+#         return "0"
+#     else:
+#         return "1"
+
+
+def walk_json(tree, path=[]):
+    try:
+        for root, child in tree.items():
+            yield from walk_json(child, path + [root])
+    except AttributeError:  # in case .items() is not possible (on leaves)
+        yield path + [tree]
+
+
+def url_to_image(url):
+    # download the image, convert it to a NumPy array, and then read
+    # it into OpenCV format
+    resp = urllib.request.urlopen(url)
+    image = np.asarray(bytearray(resp.read()), dtype="uint8")
+    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    image = cv2.resize(image, (500, 500))
+    #resutl = test_image(image)
+    return resutl
+    # cv2.imshow("Image", image)
+    # cv2.waitKey(0)
+
+
+auth = firebase.FirebaseAuthentication('rimjFQptYwqBXWp3WVfSNAAyASpsQUAyxUmvfLlx', 'mohannad199344@gmail.com',
+                                       extra={'id': '1BPdsq4oG6ehPPJ9JUsn4dFtqTT2'})
+firebase = firebase.FirebaseApplication('https://breast-cancer-199344.firebaseio.com/', auth)
+
+
+while True:
+    queue = list(walk_json(firebase.get('/Queue', None)))
+    if queue != [[None]]:
+        for x in queue:
+            key = x[0]
+            sample_id = x[1]
+            user_id = firebase.get('/Cancer Sample/' + sample_id + '/user id', None)
+            image_result=url_to_image(firebase.get('/Cancer Sample/' + sample_id + '/cancer image', None))
+            firebase.put('/Cancer Sample/' + sample_id ,'diagnosis',image_result)
+            firebase.put('/User Info/' + user_id,'last diagnosis', image_result)
+            firebase.delete('/Queue',key)
+            print("\n.\n.\n.\n"+"queue key: "+key+"\n"+"sample id: "+sample_id+"\n"+"user id: "+user_id+"\n"+"image result: "+image_result+"\n.\n.\n.\n")
+
+
+    else:
+        print('empty')
